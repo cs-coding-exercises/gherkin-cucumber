@@ -1,5 +1,12 @@
 Feature: cars.com search
 
+Scenario: Access Login page through topnav
+	Given I am on the homepage
+	When I click the user icon
+	And then click the login link
+	Then I should be brought to the login page
+	And the login page should contain text
+
 Scenario: Access to Terms of service page
 	Given We navigate to the homepage
 	And I click the terms of service link

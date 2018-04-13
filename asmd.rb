@@ -1,14 +1,35 @@
-# https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu
-#wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz
-# tar -xvzf geckodriver*
-# chmod +x geckodriver
-# sudo mv geckodriver /usr/local/bin/
-
 home_page = "http://www.cars.com"
 
 require 'selenium-webdriver'
 driver = Selenium::WebDriver.for :firefox
+wait = Selenium::WebDriver::Wait.new(:timeout => 15)
 
+#Login Page ---------------------------------------------
+Given("I am on the homepage") do
+  driver.navigate.to  "http://www.cars.com" 
+end
+
+When("I click the user icon") do
+  sleep 10
+  
+  driver.find_element(:class_name, "global-nav__profile-trigger").click()
+end
+
+And ("then click the login link") do
+  driver.find_element(:link_text, "Log In").click()
+end
+
+Then("I should be brought to the login page") do
+  expected_url = "https://www.cars.com/profile/secure/login/?continue=%2F"
+  driver.current_url == expected_url
+end
+
+And ("the login page should contain text") do
+  driver.page_source.include? "Log In with Email"
+  driver.page_source.include? "Email"
+  driver.page_source.include? "Password"
+  driver.page_source.include? "Forgot your password?"
+end
 
 #Terms of service Scenario --------------------------------
 Given("We navigate to the homepage") do

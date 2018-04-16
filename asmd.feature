@@ -18,4 +18,3 @@ Scenario: Access to Privacy Statement
 	And I click the Privacy Statement link
 	Then I should be brought to the Privacy Statement page
 	And Privacy page should contain text "The website, including"
-
